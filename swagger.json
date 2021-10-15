@@ -1,0 +1,189 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/inventory": {
+      "get": {
+        "operationId": "InventoryController_getAllInventories",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api/inventory"
+        ]
+      },
+      "post": {
+        "operationId": "InventoryController_createInventory",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InventoryRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api/inventory"
+        ]
+      }
+    },
+    "/api/inventory/{id}": {
+      "put": {
+        "operationId": "InventoryController_updateInventory",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InventoryRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api/inventory"
+        ]
+      },
+      "delete": {
+        "operationId": "InventoryController_deleteInventory",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api/inventory"
+        ]
+      }
+    },
+    "/api/sale": {
+      "get": {
+        "operationId": "SaleController_getAllSale",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api/sale"
+        ]
+      },
+      "post": {
+        "operationId": "SaleController_createSale",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSaleRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api/sale"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "CCharlie Car API",
+    "description": "demo.",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "demo",
+      "description": ""
+    }
+  ],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "InventoryRequestDto": {
+        "type": "object",
+        "properties": {
+          "sku": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "model": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sku",
+          "price",
+          "model",
+          "name"
+        ]
+      },
+      "CreateSaleRequestDto": {
+        "type": "object",
+        "properties": {
+          "carId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "carId"
+        ]
+      }
+    }
+  }
+}

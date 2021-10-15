@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+
+  mongodb_charlie:
+    image: mongo
+    restart: always
+    networks:
+      - charlie
+    ports:
+      - 27016:27017 # local access
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./mongo-volume:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+    container_name: mongodb_charlie
+  
+  service_charlie:
+    # build: .
+    depends_on:
+      - mongodb_charlie
+    build: .
+    ports:
+      - 5000:5000 # local access
+    restart: always
+    environment:
+      MONGODB_URL: mongodb://${DB_USERNAME}:${DB_PASSWORD}@mongodb_charlie:27017/db?authSource=admin&readPreference=primary
+    networks:
+      - charlie
+    container_name: service_charlie
+
+networks:
+  charlie:
+    external: false
